@@ -1,0 +1,54 @@
+{
+  "name": "soundport",
+  "main": "src/main.ts",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "~22.2.0",
+    "@angular/common": "~22.2.0",
+    "@angular/compiler": "~22.2.0",
+    "@angular/core": "~22.2.0",
+    "@angular/forms": "~22.2.0",
+    "@angular/platform-browser": "~22.2.0",
+    "@angular/router": "~22.2.0",
+    "@nativescript/angular": "~22.0.1",
+    "@nativescript/canvas": "3.0.0",
+    "@nativescript/canvas-polyfill": "3.0.0",
+    "@nativescript/canvas-svg": "3.0.0",
+    "@nativescript/core": "https://pkg.pr.new/@nativescript/core@9f94e72",
+    "@triniwiz/nativescript-masonkit": "^1.0.0-beta.130",
+    "@valor/nativescript-websockets": "^2.0.2",
+    "rxjs": "~7.8.2",
+    "zone.js": "~0.16.0"
+  },
+  "devDependencies": {
+    "@analogjs/vite-plugin-angular": "^2.8.0",
+    "@angular/build": "~22.2.0",
+    "@angular/compiler-cli": "~22.2.0",
+    "@nativescript/android": "9.1.1",
+    "@nativescript/ios": "9.1.0",
+    "@nativescript/linux": "0.1.0-alpha.0",
+    "@nativescript/tailwind": "~4.0.10",
+    "@nativescript/types": "~9.1.1",
+    "@nativescript/vite": "https://pkg.pr.new/@nativescript/vite@9f94e72",
+    "@nativescript/windows": "^1.0.0-beta.21",
+    "@types/node": "~26.5.0",
+    "nativescript": "9.1.2-dev.2026-11-08-42454367588",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^6.0.3"
+  },
+  "overrides": {
+    "@nativescript/core": "https://pkg.pr.new/@nativescript/core@9f94e72",
+    "@nativescript/canvas": "3.0.0",
+    "@nativescript/canvas-polyfill": "3.0.0",
+    "@nativescript/canvas-svg": "3.0.0",
+    "@nativescript/canvas-media": "3.0.0"
+  },
+  "scripts": {
+    "windows": "ns run windows",
+    "linux": "ns run linux",
+    "ios": "ns run ios",
+    "android": "ns run android",
+    "clean": "ns clean"
+  }
+}
