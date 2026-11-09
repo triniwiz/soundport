@@ -77,8 +77,12 @@ export class CdpPage {
       const pending = this.pending.get(message.id);
       if (!pending) return;
       this.pending.delete(message.id);
-      if (message.error) pending.reject(new Error(message.error.message ?? 'DevTools error'));
-      else pending.resolve(message.result);
+      if (message.error) {
+        const { message: text = 'DevTools error', data } = message.error;
+        pending.reject(new Error(data ? `${text}: ${data}` : text));
+      } else {
+        pending.resolve(message.result);
+      }
     } else if (message.method) {
       this.listeners.get(message.method)?.forEach((listener) => listener(message.params));
     }

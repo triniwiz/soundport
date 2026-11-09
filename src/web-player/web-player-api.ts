@@ -66,8 +66,6 @@ export class WebPlayerApi implements MusicBackend {
     }
     const restrictions = state.restrictions ?? {};
     const elapsed = state.isPaused ? 0 : Math.max(0, Date.now() - (state.timestamp ?? Date.now()));
-    // A state restored from another device has no local session; play starts from 0.
-    const restored = !state.sessionId;
     const isAd = state.item.type === 'ad';
     return {
       device: this.thisDevice(true),
@@ -75,7 +73,7 @@ export class WebPlayerApi implements MusicBackend {
       shuffle_state: !!state.shuffle,
       context: state.context?.uri ? { type: typeOf(state.context.uri), uri: state.context.uri } : null,
       timestamp: state.timestamp ?? Date.now(),
-      progress_ms: restored ? 0 : Math.min((state.positionAsOfTimestamp ?? 0) + elapsed, state.duration ?? Infinity),
+      progress_ms: Math.min((state.positionAsOfTimestamp ?? 0) + elapsed, state.duration ?? Infinity),
       is_playing: !state.isPaused,
       item: playable(state.item),
       currently_playing_type: isAd ? 'ad' : state.item.type === 'episode' ? 'episode' : 'track',
@@ -126,14 +124,8 @@ export class WebPlayerApi implements MusicBackend {
     }
   }
 
-  /** Without a local session (state restored from another device), starts the context instead. */
+  /** Also continues a state restored from another session, from its saved position. */
   async resume(): Promise<void> {
-    const state = await this.player.call<any>('state', { depth: 4 });
-    if (state && !state.sessionId && state.item?.uri) {
-      const context = state.context?.uri ? { uri: state.context.uri } : { uri: state.item.uri };
-      await this.player.invoke('PlayerAPI', 'play', context, {}, { skipTo: { uri: state.item.uri } });
-      return;
-    }
     await this.player.invoke('PlayerAPI', 'resume');
   }
 
